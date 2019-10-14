@@ -1,0 +1,25 @@
+/* 
+    Created on : 12-mars-2019, 10:26:36
+    Author     : Pedro
+*/
+html{
+    height: 100%;
+}
+body{
+    min-height: 100%;
+    
+}
+footer{
+    position:absolute;
+    bottom: 0;
+
+}
+aside{
+    margin: 25px 25px 25px;
+}
+aside div{
+    background-color: #A1A0A0;
+}
+label,table,h1,h2,h3,h4,h5,h6{
+    color: white;
+}
