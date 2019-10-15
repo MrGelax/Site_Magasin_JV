@@ -1,6 +1,8 @@
 <?php
     session_start();
     include('db/connexion_db.php');
+    include('db/db.php');
+    $DB=new DB('localhost','root','','jeuxvideo');
     if(isset($_GET['choix'])&&$_GET['choix']=="authentification_start"){
             include("web_pages/authentification_start.php");
         }

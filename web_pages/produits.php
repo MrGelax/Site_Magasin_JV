@@ -1,11 +1,7 @@
 <?php
-    $sql = "SELECT * FROM jeu order by plateforme";
-    $sth = $dbh->query($sql);
-    if ($sth === FALSE) {
-        echo("Erreur : la requete SQL est incorrecte. <br/>");
-    }else{
-        $prods = $sth->fetchAll(PDO::FETCH_ASSOC);
-    }
+    //var_dump($DB->query('SELECT * FROM jeu order by plateforme'));
+    $prods = $DB->query('SELECT * FROM jeu order by plateforme');
+    
     if(!isset($_GET['plat'])){
         $plat="toutes plateforme";
     } else {
@@ -49,26 +45,35 @@
             <?php
             $i=1;
             foreach($prods as $prod){?>
-            <div class="card bg-dark <?php echo($prod['plateforme']);?> <?php echo($prod['editeur']);?>"
-                 style="margin: 0px 25px 25px;display: inline-block" data-price="<?php echo($prod['prix']);?>">
-                <div class="card card-img-top <?php echo($prod['plateforme']);?> <?php echo($prod['editeur']);?>"data-price="<?php echo($prod['prix']);?>">
-                    <a href="./index.php?choix=prod_page&id=<?php echo($prod['id']);?>"class="rounded">
+            <div class="card bg-dark <?php echo($prod['id']." ".$prod['plateforme']." ".$prod['editeur'])?>"
+                 style="margin: 0px 25px 25px;display: inline-block" data-price="<?=$prod['prix'];?>">
+                <div class="card card-img-top <?=$prod['plateforme'];$prod['editeur'];?>"data-price="<?=$prod['prix'];?>">
+                    <a href="./index.php?choix=prod_page&id=<?=$prod['id'];?>"class="rounded">
                         <img src="./img/Anthem.png" class="center-block img-responsive" style="width:140px;">
                     </a>
-                </div><br>                
-                <div style="height:60px;max-width:150px" class=" text-center <?php echo($prod['plateforme']);?> <?php echo($prod['editeur']);?>"data-price="<?php echo($prod['prix']);?>">
-                    <a href="./index.php?choix=prod_page&id=<?php echo($prod['id']);?>"><?php echo($prod["titre"]);?></a>
+                </div><br>
+                <div style="height:60px;max-width:150px"
+                     class=" text-center <?=$prod['plateforme'];$prod['editeur'];?>"
+                     data-price="<?=$prod['prix'];?>">
+                    <a href="./index.php?choix=prod_page&id=<?=$prod['id'];$prod["titre"];?>"></a>
                     <?php echo("<div class=' card-text"." ".$prod['plateforme']." ".$prod['editeur']." ".$prod['prix']."'></div>");?>
                 </div>
-                
-                <div class="card-footer text-center" style="color: white;border-color: white"><?php echo($prod['prix']." €");?></div>
+                <div class="card-footer text-center" style="color: white;border-color: white">
+                    <?= number_format($prod['prix'],2,',',' ');?> €
+                </div>
+                <div class="text-center">
+                    &nbsp<span class="fas fa-cart-arrow-down"> &nbsp</span>
+                    <button class="fas fa-plus btn add"></button>
+                    <span class="QtSelect">&nbsp 0 &nbsp</span>
+                    <button class="fas fa-minus btn minus"></button> &nbsp
+                </div>
             </div>
             <?php
                 if(($i%4)===0) {
                     echo("<br>");
                     $i=1;
                 }
-                $i=$i+1;    
+                $i=$i+1;
             }?>
     </section>
 </div>
@@ -102,14 +107,22 @@
         if(radioValue){
             $(".card").hide();
             $("."+radioValue).show();
+            $(".sous_titre").text("Jeux "+radioValue);
         }
     });
 </script>
+//A travailler
 <script>
     $("#button").click(function(){
         $(".card").show();
     });
+    $(".add").click(function(){
+        $(".QtSelect").text($(".QtSelect").val()+1);
+        console.log("Bonjour"+$(".QtSelect").text());
+        
+    });
 </script>
+
 
 <!--Script filtre de prix-->
 <script>
