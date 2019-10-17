@@ -22,9 +22,9 @@ class db {
             die("<h1>Impossible de se connecter à la base de donnée</h1>");
         }
     }
-    public function query($sql){
+    public function query($sql,$data= array()){
         $req= $this->db->prepare($sql);
-        $req->execute();
+        $req->execute($data);
         return $req->fetchAll(PDO::FETCH_OBJ);
     }
 }

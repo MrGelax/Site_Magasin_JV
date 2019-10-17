@@ -17,6 +17,11 @@
         </ul>
         <ul class="navbar-nav col-md-5"style="margin-left: 200px">
             <li  class="nav-item">
+                <a class="nav-link" href="index.php?choix=panier">
+                    <span class="fas fa-shopping-cart"style='font-size:20px;color:white' ></span>&nbsp; 
+                </a>
+            </li>
+            <li  class="nav-item">
                 <a class="nav-link" href="index.php?choix=magasins"><span class="fas fa-map-marker-alt"  style='font-size:20px;color:white' ></span>&nbsp; &nbsp;</a>
             </li>
             <li class="dropdown col nav-item">

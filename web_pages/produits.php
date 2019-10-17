@@ -1,15 +1,14 @@
 <?php
     //var_dump($DB->query('SELECT * FROM jeu order by plateforme'));
     $prods = $DB->query('SELECT * FROM jeu order by plateforme');
-    
     if(!isset($_GET['plat'])){
         $plat="toutes plateforme";
     } else {
         $plat=$_GET['plat'];
     }
 ?>
-<div class="clearfix">
-    <aside class="float-left">
+<div class="clearfix col-auto">
+    <aside class="float-left"style="display: inline-block;">
         <h3 style="color:#C4C3C3;"> &nbsp; &nbsp;Filtre</h3>
             <div style="border-radius:12px">
                 <br>
@@ -34,47 +33,31 @@
                         <div id="slider" style="color:red"></div>
                     </div>
                 </div><br>
-                <?php include("./web_pages/searchbar.php");?>
+               <?php include("./web_pages/searchbar.php");?>
                 <br>
             </div>
             <a id="boutton" style="margin: 3px 12px 3px;border-radius: 50px"class="btn btn-info center-block" href="./index.php?choix=prod">Réinitialiser</a>
     </aside>
-    <section class="float-left" id="produits">
+    <section class="col-9"id="produits"style="display: inline-block;border: solid;">
         <?php echo("<br><p class='sous_titre'style='color:#C4C3C3;'>&nbsp &nbsp &nbsp &nbsp<strong>JEUX ".$plat."</strong></p>");?>
 
             <?php
             $i=1;
-            foreach($prods as $prod){?>
-            <div class="card bg-dark <?php echo($prod['id']." ".$prod['plateforme']." ".$prod['editeur'])?>"
-                 style="margin: 0px 25px 25px;display: inline-block" data-price="<?=$prod['prix'];?>">
-                <div class="card card-img-top <?=$prod['plateforme'];$prod['editeur'];?>"data-price="<?=$prod['prix'];?>">
-                    <a href="./index.php?choix=prod_page&id=<?=$prod['id'];?>"class="rounded">
+            foreach($prods as $prod):?>
+            <div class="col col-3 card bg-dark <?=$prod->id." ".$prod->plateforme." ".$prod->editeur?>"
+                style="margin: 0px 25px 25px;display: inline-block;" data-price="<?=$prod->prix;?>">
+                <div class="card-header"><?= $prod->titre." - ".$prod->plateforme;?></div>
+                <div class="card card-body <?=$prod->plateforme." ".$prod->editeur;?>"data-price="<?=$prod->prix;?>">
+                    <a href="./index.php?choix=prod_page&prod=<?=$prod->id;?>"class="rounded">
                         <img src="./img/Anthem.png" class="center-block img-responsive" style="width:140px;">
                     </a>
                 </div><br>
-                <div style="height:60px;max-width:150px"
-                     class=" text-center <?=$prod['plateforme'];$prod['editeur'];?>"
-                     data-price="<?=$prod['prix'];?>">
-                    <a href="./index.php?choix=prod_page&id=<?=$prod['id'];$prod["titre"];?>"></a>
-                    <?php echo("<div class=' card-text"." ".$prod['plateforme']." ".$prod['editeur']." ".$prod['prix']."'></div>");?>
-                </div>
                 <div class="card-footer text-center" style="color: white;border-color: white">
-                    <?= number_format($prod['prix'],2,',',' ');?> €
-                </div>
-                <div class="text-center">
-                    &nbsp<span class="fas fa-cart-arrow-down"> &nbsp</span>
-                    <button class="fas fa-plus btn add"></button>
-                    <span class="QtSelect">&nbsp 0 &nbsp</span>
-                    <button class="fas fa-minus btn minus"></button> &nbsp
+                    <?= number_format($prod->prix,2,',',' ');?> €
+                    <a href="./index.php?choix=addpanier&prod=<?=$prod->id;?>" class="fas fa-cart-arrow-down addCart"></a>
                 </div>
             </div>
-            <?php
-                if(($i%4)===0) {
-                    echo("<br>");
-                    $i=1;
-                }
-                $i=$i+1;
-            }?>
+            <?php endforeach ?>
     </section>
 </div>
 
@@ -116,12 +99,8 @@
     $("#button").click(function(){
         $(".card").show();
     });
-    $(".add").click(function(){
-        $(".QtSelect").text($(".QtSelect").val()+1);
-        console.log("Bonjour"+$(".QtSelect").text());
-        
-    });
 </script>
+<!-- Script ajout prod aqu panier -->
 
 
 <!--Script filtre de prix-->

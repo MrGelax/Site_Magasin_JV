@@ -1,5 +1,5 @@
 <?php
-    if(!isset($_GET['id'])){
+    if(!isset($_GET['prod'])){
         ?>
 <script>
     $(".err").text("Page introuvable");
@@ -8,13 +8,11 @@
 </script> 
         <?php
     }else{    
-        $id=$_GET['id'];
-        $sql = "SELECT * FROM jeu where id=$id";
-        $sth = $dbh->query($sql);
-        if ($sth === FALSE) {
+        $prod=$DB->query("SELECT * FROM jeu where id=".$_GET['prod']);
+        if ($prod === FALSE) {
             echo("Erreur : la requete SQL est incorrecte. <br/>");
-        }else{
-            $prod = $sth->fetch(PDO::FETCH_ASSOC);?>
+        }else{?>
+            
             <div class="row" style="margin: 0px 0px 50px">            
                 <asside class="col-md-3" style="display: inline">
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -38,7 +36,7 @@
                 </asside>
                 <section style="display: inline;margin:10px 20px 30px;">
                     <h3>Desciption du produit</h3>
-                    <p><?php echo($prod['synopsis'])?></p>
+                    <p><?=$prod[0]->synopsis?></p>
                 </section>
             </div><?php
         }

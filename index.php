@@ -1,8 +1,5 @@
 <?php
-    session_start();
-    include('db/connexion_db.php');
-    include('db/db.php');
-    $DB=new DB('localhost','root','','jeuxvideo');
+    include("./include/header.php");
     if(isset($_GET['choix'])&&$_GET['choix']=="authentification_start"){
             include("web_pages/authentification_start.php");
         }
@@ -95,6 +92,12 @@
                         case "magasins" ://pas montrer
                             include("./web_pages/contact.php");
                         break;
+                        case "panier" ://tout le monde
+                            include("./web_pages/panier.php");
+                        break;
+                        case "addpanier" ://tout le monde
+                            include("./web_pages/addpanier.php");
+                        break;
                         default :
                             include("./web_pages/accueil.php");
                         break;
@@ -104,4 +107,5 @@
                     include("include/footer.php");
                 ?>
     </body>
+    
 </html>
