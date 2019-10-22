@@ -35,5 +35,5 @@
             <a href="https://mdbootstrap.com/education/bootstrap/" style="color: white"> Da Silva Pedro ISFCE</a>
         </p>
     </div>
+    <script type="text/javascript" src=js/app.js></script>
 </footer>
-<script type="text/javascript" src="js/app.js"></script>

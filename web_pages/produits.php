@@ -1,10 +1,11 @@
 <?php
     //var_dump($DB->query('SELECT * FROM jeu order by plateforme'));
     $prods = $DB->query('SELECT * FROM jeu order by plateforme');
-    if(!isset($_GET['plat'])){
-        $plat="toutes plateforme";
-    } else {
+    if(isset($_GET['plat'])){
         $plat=$_GET['plat'];
+        echo $plat;
+    }else{
+        $plat="null";
     }
 ?>
 <div class="clearfix col-auto">
@@ -36,6 +37,7 @@
                <?php include("./web_pages/searchbar.php");?>
                 <br>
             </div>
+            <!--<span style="margin: 3px 12px 3px;border-radius: 50px"class="reset btn btn-info center-block">Réinitialiser</span><br>-->
             <a id="boutton" style="margin: 3px 12px 3px;border-radius: 50px"class="btn btn-info center-block" href="./index.php?choix=prod">Réinitialiser</a>
     </aside>
     <section class="col-9"id="produits"style="display: inline-block;border: solid;">
@@ -60,50 +62,7 @@
             <?php endforeach ?>
     </section>
 </div>
-
-<!-- script pour le afficher selon $_GET['plate'] avec check de box adéquate ok-->
-<?php
-    if(isset($_GET['plat'])){
-        ?><script>
-            $("input[value= <?php echo($_GET['plat'])?>]").prop('checked',true);
-            $(".card").hide();
-            $("."+"<?php echo($_GET['plat']);?>").show();</script><?php
-    }else{
-        ?><script>$(".card").show();</script><?php
-    }
-?>
-<script>
-     //script pour le afficher selon filtre plateforme ok
-    $("input[type='radio']").click(function(){
-        var radioValue=$("input[name='plat']:checked").val();
-        if(radioValue){
-            $(".card").hide();
-            $("."+radioValue).show();
-            $(".sous_titre").text("Jeux "+radioValue);
-        }
-    });
-</script>
-<script>
-    //script pour le afficher selon filtre editeur ok
-    $("input[type='radio']").click(function(){
-        var radioValue=$("input[name='edit']:checked").val();
-        if(radioValue){
-            $(".card").hide();
-            $("."+radioValue).show();
-            $(".sous_titre").text("Jeux "+radioValue);
-        }
-    });
-</script>
-//A travailler
-<script>
-    $("#button").click(function(){
-        $(".card").show();
-    });
-</script>
-<!-- Script ajout prod aqu panier -->
-
-
-<!--Script filtre de prix-->
+<!--Script filtre de prix quand je prend plateforme via nav, il affcihe tous les produits-->
 <script>
         $(document).ready(function(){
             function showProducts(minPrice, maxPrice) {
@@ -126,4 +85,46 @@
             outPut.html($("#slider").slider('values',0)+' - '+$("#slider").slider('values',1)+'€');
             showProducts($("#slider").slider('values',0),$("#slider").slider('values',1));
         });
+</script>
+<!-- script pour le afficher selon $_GET['plate'] avec check de box adéquate ok-->
+<script>
+    var plat="<?=$plat?>";
+    console.log(plat);
+    if(plat=="null"){
+        $(".card").hide();
+    }else{
+        $(".card").hide();
+        $("input[value= <?=$plat?>]").prop('checked',true);
+        $("."+"<?=$plat?>").show();
+    }
+</script>
+<!-- Script pour réinitialiser la page, à travailler -->
+<script>
+    $("#reset").click(function(){
+        
+        $("input[type='radio']").prop('checked',false);
+        
+    });
+</script>
+<script>
+     //script pour le afficher selon filtre plateforme ok
+    $("input[type='radio']").click(function(){
+        var radioValue=$("input[name='plat']:checked").val();
+        if(radioValue){
+            $(".card").hide();
+            $("."+radioValue).show();
+            $(".sous_titre").text("Jeux "+radioValue);
+        }
+    });
+</script>
+<script>
+    //script pour le afficher selon filtre editeur ok
+    $("input[type='radio']").click(function(){
+        var radioValue=$("input[name='edit']:checked").val();
+        if(radioValue){
+            $(".card").hide();
+            $("."+radioValue).show();
+            $(".sous_titre").text("Jeux "+radioValue);
+        }
+    });
 </script>

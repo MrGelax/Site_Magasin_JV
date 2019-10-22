@@ -24,14 +24,17 @@
             $products=$DB->query('SELECT * FROM jeu Where id IN('. implode(',',$ids).')');
         }
         foreach ($products as $prod):?>
+    <form action="index.php?choix=panier"method="POST">
             <tr>
                 <td><?=$prod->titre?></td>
                 <td><?=$prod->prix;?>€</td>
-                <td><?=$_SESSION['panier'][$prod->id];?></td>
+                <td><input type="text" value="<?=$_SESSION['panier'][$prod->id];?>"style="width:40px;"></td>
                 <td><?=number_format($prod->prix*$_SESSION['panier'][$prod->id],2,',',' ');?>€</td>
                 <td><a href="index.php?choix=panier&del=<?=$prod->id;?>"class="btn fa fa-remove"
                        style="color: red;font-size: 15px"></a></td> 
             </tr>
+            <input type="submit"value="Recalculer">
+    </form>
         <?php endforeach;
         ?>
     </tbody>
